@@ -1,6 +1,6 @@
 
-resource "aws_security_group" "ci_cd_demo " {
-  name        = "ci_cd_demo -${var.environment}"
+resource "aws_security_group" "ci_cd_demo" {
+  name        = "ci_cd_demo-${var.environment}"
   description = "Security group for environment ${var.environment}"
   vpc_id      = aws_vpc.ci_cd_demo_vpc.id
 

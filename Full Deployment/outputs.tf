@@ -1,10 +1,10 @@
 
 output "instance_id" {
-  value = aws_instance.ci_cd_demo .id
+  value = aws_instance.ci_cd_demo.id
 }
 
 output "security_group_id" {
-  value = aws_security_group.ci_cd_demo .id
+  value = aws_security_group.ci_cd_demo.id
 }
 
 output "vpc_id" {

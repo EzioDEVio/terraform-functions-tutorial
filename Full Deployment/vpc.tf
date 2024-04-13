@@ -1,7 +1,7 @@
 
-resource "aws_vpc" "ci_cd_demo _vpc" {
-  cidr_block = var.cidr
-  enable_dns_support = true
+resource "aws_vpc" "ci_cd_demo_vpc" {
+  cidr_block           = var.cidr
+  enable_dns_support   = true
   enable_dns_hostnames = true
 
   tags = merge({
@@ -10,9 +10,9 @@ resource "aws_vpc" "ci_cd_demo _vpc" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  count             = length(var.public_subnet_cidrs)
-  vpc_id            = aws_vpc.ci_cd_demo_vpc.id
-  cidr_block        = var.public_subnet_cidrs[count.index]
+  count                   = length(var.public_subnet_cidrs)
+  vpc_id                  = aws_vpc.ci_cd_demo_vpc.id
+  cidr_block              = var.public_subnet_cidrs[count.index]
   map_public_ip_on_launch = true
 
   tags = merge({
