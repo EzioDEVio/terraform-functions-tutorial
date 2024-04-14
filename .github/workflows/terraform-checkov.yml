@@ -1,0 +1,25 @@
+
+name: Terraform Checkov Analysis
+
+on: [push, pull_request]
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install Checkov
+      run: |
+        pip install checkov
+
+    - name: Run Checkov Terraform scan
+      run: |
+        checkov -d . --quiet
+
