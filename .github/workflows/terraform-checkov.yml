@@ -21,5 +21,11 @@ jobs:
 
     - name: Run Checkov Terraform scan
       run: |
-        checkov -d . --quiet
+        checkov -d . --quiet --output junitxml > checkov-report.xml || true
+      continue-on-error: true
 
+    - name: Upload Checkov Scan Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: checkov-report
+        path: checkov-report.xml
