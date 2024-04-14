@@ -1,6 +1,6 @@
 
 # Region where AWS resources will be deployed
-region = "us-gov-west-1"  # ci_cd_demo  for AWS GovCloud; adjust as needed
+region = "us-gov-west-1" # ci_cd_demo  for AWS GovCloud; adjust as needed
 
 # Environment - This could be 'dev', 'staging', or 'prod'
 environment = "dev"

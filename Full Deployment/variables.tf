@@ -38,10 +38,51 @@ variable "cidr" {
 
 variable "public_subnet_cidrs" {
   description = "CIDR blocks for public subnets for each environment"
-  type = map(list(string))
+  type        = map(list(string))
   default = {
     dev     = ["10.0.1.0/24", "10.0.2.0/24"]
     staging = ["10.1.1.0/24", "10.1.2.0/24"]
     prod    = ["10.2.1.0/24", "10.2.2.0/24"]
   }
 }
+
+variable "ingress_rules" {
+  description = "List of ingress rules for the security group"
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+  default = [
+    {
+      description = "SSH access from office"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["your_office_ip/32"] # Replace with your actual office IP
+    }
+  ]
+}
+
+variable "egress_rules" {
+  description = "List of egress rules for the security group"
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+  default = [
+    {
+      description = "HTTPS access to the Internet"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+}
+
