@@ -10,15 +10,16 @@ resource "aws_vpc" "ci_cd_demo_vpc" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  count                   = length(var.public_subnet_cidrs)
+  count                   = length(var.public_subnet_cidrs[var.environment])
   vpc_id                  = aws_vpc.ci_cd_demo_vpc.id
-  cidr_block              = var.public_subnet_cidrs[count.index]
+  cidr_block              = var.public_subnet_cidrs[var.environment][count.index]
   map_public_ip_on_launch = true
 
   tags = merge({
     Name = "Public-Subnet-${count.index + 1}-${var.environment}"
   }, local.common_tags)
 }
+
 
 resource "aws_internet_gateway" "ci_cd_demo_igw" {
   vpc_id = aws_vpc.ci_cd_demo_vpc.id

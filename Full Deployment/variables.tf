@@ -34,8 +34,14 @@ variable "cidr" {
   default     = "10.0.0.0/16"
 }
 
+
+
 variable "public_subnet_cidrs" {
-  description = "CIDR blocks for public subnets"
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  description = "CIDR blocks for public subnets for each environment"
+  type = map(list(string))
+  default = {
+    dev     = ["10.0.1.0/24", "10.0.2.0/24"]
+    staging = ["10.1.1.0/24", "10.1.2.0/24"]
+    prod    = ["10.2.1.0/24", "10.2.2.0/24"]
+  }
 }
