@@ -1,4 +1,4 @@
-
+[![Terraform Checkov Analysis](https://github.com/EzioDEVio/terraform-functions-tutorial/actions/workflows/terraform-checkov.yml/badge.svg)](https://github.com/EzioDEVio/terraform-functions-tutorial/actions/workflows/terraform-checkov.yml)
 # Terraform Functions and Expressions Tutorial
 
 This repository provides practical examples and detailed tutorials on using advanced Terraform functions and expressions, such as conditional expressions, local values, and the lookup function.
