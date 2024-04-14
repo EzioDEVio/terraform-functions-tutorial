@@ -46,6 +46,17 @@ variable "public_subnet_cidrs" {
   }
 }
 
+variable "private_subnet_cidrs" {
+  description = "CIDR blocks for private subnets for each environment"
+  type        = map(list(string))
+  default = {
+    dev     = ["10.0.10.0/24", "10.0.11.0/24"]
+    staging = ["10.1.10.0/24", "10.1.11.0/24"]
+    prod    = ["10.2.10.0/24", "10.2.11.0/24"]
+  }
+}
+
+
 variable "ingress_rules" {
   description = "List of ingress rules for the security group"
   type = list(object({
@@ -57,11 +68,25 @@ variable "ingress_rules" {
   }))
   default = [
     {
-      description = "SSH access from office"
+      description = "SSH access from specific IP"
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      cidr_blocks = ["your_office_ip/32"] # Replace with your actual office IP
+      cidr_blocks = ["198.51.100.1/32"] # Replace with actual SSH accessible IP
+    },
+    {
+      description = "HTTP access"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"] # Open to the world, adjust as necessary
+    },
+    {
+      description = "HTTPS access"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"] # Open to the world, adjust as necessary
     }
   ]
 }
@@ -77,12 +102,11 @@ variable "egress_rules" {
   }))
   default = [
     {
-      description = "HTTPS access to the Internet"
-      from_port   = 443
-      to_port     = 443
-      protocol    = "tcp"
+      description = "Allow all outbound traffic"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
       cidr_blocks = ["0.0.0.0/0"]
     }
   ]
 }
-
